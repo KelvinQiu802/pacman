@@ -10,9 +10,9 @@ public class Menu extends JPanel {
     g.fillRect(0, 0, Pacman.SCREEN_WIDTH, Pacman.SCREEN_HEIGHT);
 
     g.setColor(new Color(255, 255, 0));
-    Font font = new Font("Arial", Font.BOLD, 20);
+    Font font = new Font("Arial", Font.BOLD, 30);
     g.setFont(font);
-    g.drawString("Welcome to Pacman !!!", 87, 50);
+    g.drawString("Welcome to Pacman !!!", 38, 50);
 
     font = new Font("Arial", Font.BOLD, 18);
     g.setFont(font);
