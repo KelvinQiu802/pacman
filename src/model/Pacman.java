@@ -4,6 +4,12 @@ import screen.PlayerListener;
 import ucd.comp2011j.engine.Game;
 
 public class Pacman implements Game {
+  // Height: 24 * 20 + 50(Info)
+  // Width: 20 * 20
+  public static final int SCREEN_HEIGHT = 530;
+  public static final int SCREEN_WIDTH = 400;
+  private static final int NO_LEVELS = 14;
+
   private PlayerListener listener;
 
   public Pacman(PlayerListener linster) {
@@ -79,14 +85,11 @@ public class Pacman implements Game {
 
   @Override
   public int getScreenWidth() {
-    // TODO Auto-generated method stub
-    return 0;
+    return SCREEN_WIDTH;
   }
 
   @Override
   public int getScreenHeight() {
-    // TODO Auto-generated method stub
-    return 0;
+    return SCREEN_HEIGHT;
   }
-
 }

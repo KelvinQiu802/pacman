@@ -12,7 +12,7 @@ import ucd.comp2011j.engine.ScoreKeeper;
 public class App {
     public static void main(String[] args) throws Exception {
         JFrame mainWindow = new JFrame();
-        mainWindow.setSize(800, 800);
+        mainWindow.setSize(Pacman.SCREEN_WIDTH, Pacman.SCREEN_HEIGHT);
         mainWindow.setResizable(false);
         mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainWindow.setTitle("Space Invaders Game");
