@@ -6,6 +6,8 @@ import java.awt.event.KeyListener;
 public class PlayerListener implements KeyListener {
   private boolean left;
   private boolean right;
+  private boolean up;
+  private boolean down;
   private boolean fire;
   private boolean pause;
 
@@ -15,6 +17,14 @@ public class PlayerListener implements KeyListener {
 
   public boolean isPressingRight() {
     return right;
+  }
+
+  public boolean isPressingUp() {
+    return up;
+  }
+
+  public boolean isPressingDown() {
+    return down;
   }
 
   public boolean hasPressedFire() {
@@ -40,6 +50,10 @@ public class PlayerListener implements KeyListener {
       right = true;
     } else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
       fire = true;
+    } else if (e.getKeyCode() == KeyEvent.VK_UP) {
+      up = true;
+    } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+      down = true;
     }
   }
 
@@ -49,7 +63,12 @@ public class PlayerListener implements KeyListener {
       left = false;
     } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
       right = false;
+    } else if (e.getKeyCode() == KeyEvent.VK_UP) {
+      up = false;
+    } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+      down = false;
     }
+
   }
 
   public void resetPause() {
