@@ -11,46 +11,71 @@ public class Pacman implements Game {
   private static final int NO_LEVELS = 14;
 
   private PlayerListener listener;
+  private int playerLives;
+  private int playerScore;
+  private boolean pause = false;
+  private int currentLevel = 1;
 
-  public Pacman(PlayerListener linster) {
+  private Player player;
+
+  public Pacman(PlayerListener listener) {
     this.listener = listener;
     startNewGame();
   }
 
   @Override
   public int getPlayerScore() {
-    // TODO Auto-generated method stub
-    return 0;
+    return playerScore;
   }
 
   @Override
   public int getLives() {
-    // TODO Auto-generated method stub
-    return 0;
+    return playerLives;
   }
 
   @Override
   public void updateGame() {
-    // TODO Auto-generated method stub
+    System.out.println("Hello");
+    if (!isPaused()) {
+      movePlayer();
+    }
+  }
 
+  public void movePlayer() {
+    if (listener.isPressingLeft()) {
+      player.move(-6, 0);
+    } else if (listener.isPressingRight()) {
+      player.move(+6, 0);
+    } else if (listener.isPressingUp()) {
+      player.move(0, -6);
+    } else if (listener.isPressingDown()) {
+      player.move(0, +6);
+    }
+  }
+
+  public Player getPlayer() {
+    return player;
   }
 
   @Override
   public boolean isPaused() {
-    // TODO Auto-generated method stub
-    return false;
+    return pause;
   }
 
   @Override
   public void checkForPause() {
-    // TODO Auto-generated method stub
-
+    System.out.println("NONO");
+    if (listener.hasPressedPause()) {
+      pause = !pause;
+      listener.resetPause();
+    }
   }
 
   @Override
   public void startNewGame() {
-    // TODO Auto-generated method stub
-
+    playerLives = 3;
+    playerScore = 0;
+    player = new Player(200, 200);
   }
 
   @Override
@@ -62,7 +87,7 @@ public class Pacman implements Game {
   @Override
   public boolean isPlayerAlive() {
     // TODO Auto-generated method stub
-    return false;
+    return true;
   }
 
   @Override
@@ -74,7 +99,6 @@ public class Pacman implements Game {
   @Override
   public void moveToNextLevel() {
     // TODO Auto-generated method stub
-
   }
 
   @Override

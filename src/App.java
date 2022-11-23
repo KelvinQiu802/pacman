@@ -29,7 +29,7 @@ public class App {
         Menu menu = new Menu();
         About about = new About();
         Score score = new Score();
-        Game game = new Game();
+        Game game = new Game(pacman);
 
         GameManager mm = new GameManager(pacman, mainWindow, menuListener, menu, about, score, game, scoreKeeper);
 
