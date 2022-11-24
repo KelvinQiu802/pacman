@@ -21,6 +21,7 @@ public class Pacman implements Game {
   private Maze curMaze;
 
   private Player player;
+  private ArrayList<Ghost> ghostList;
   private ArrayList<Dot> dotList;
   private ArrayList<Fruit> fruitList;
   private ArrayList<Power> powerList;
@@ -84,6 +85,7 @@ public class Pacman implements Game {
     curMaze = new Maze(level[currentLevel]);
 
     player = generatePlayer();
+    ghostList = generateGhostList();
     dotList = generateDotList();
     fruitList = generateFruitList();
     powerList = generatePowerList();
@@ -144,6 +146,23 @@ public class Pacman implements Game {
       }
     }
     throw new Error("Player dosen't exist");
+  }
+
+  public ArrayList<Ghost> generateGhostList() {
+    ArrayList<String> mazeArr = curMaze.getMaze();
+    ArrayList<Ghost> ghostArr = new ArrayList<>();
+    for (int i = 0; i < mazeArr.size(); i++) {
+      if (mazeArr.get(i).equals("G")) {
+        int posX = Coordinate.getCoordinate(i, curMaze.getCols()).getCol() * 20;
+        int posY = Coordinate.getCoordinate(i, curMaze.getCols()).getRow() * 20 + 50;
+        ghostArr.add(new Ghost(posX, posY));
+      }
+    }
+    return ghostArr;
+  }
+
+  public ArrayList<Ghost> getGhostList() {
+    return ghostList;
   }
 
   public String[] getLevelArr() {

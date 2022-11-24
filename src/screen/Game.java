@@ -5,6 +5,7 @@ import javax.swing.*;
 import model.Coordinate;
 import model.Dot;
 import model.Fruit;
+import model.Ghost;
 import model.Maze;
 import model.Pacman;
 import model.Player;
@@ -26,6 +27,7 @@ public class Game extends JPanel {
       g.fillRect(0, 0, Pacman.SCREEN_WIDTH, Pacman.SCREEN_HEIGHT);
 
       drawPlayer(g, game.getPlayer());
+      drawGhost(g, game.getGhostList());
       drawMaze(g, game.getMaze());
       drawDot(g, game.getDotList());
       drawFruit(g, game.getFruitList());
@@ -35,7 +37,6 @@ public class Game extends JPanel {
 
   public void drawPlayer(Graphics g, Player p) {
     g.setColor(new Color(255, 0, 0));
-    // g.fillRect(p.getX(), p.getY(), 10, 10);
     g.fillOval(p.getX(), p.getY(), 20, 20);
   }
 
@@ -66,7 +67,17 @@ public class Game extends JPanel {
     }
   }
 
-  public void drawGhost() {
+  public void drawGhost(Graphics g, ArrayList<Ghost> ghostList) {
+    Color[] colors = new Color[4];
+    colors[0] = new Color(255, 184, 222);
+    colors[1] = new Color(0, 255, 222);
+    colors[2] = new Color(255, 0, 0);
+    colors[3] = new Color(101, 218, 121);
+    for (int i = 0; i < ghostList.size(); i++) {
+      g.setColor(colors[i]);
+      Ghost p = ghostList.get(i);
+      g.fillOval(p.getX(), p.getY(), 20, 20);
+    }
   }
 
   public void drawMaze(Graphics g, Maze maze) {
@@ -86,10 +97,6 @@ public class Game extends JPanel {
         switch (mazeArr.get(index)) {
           case "W": // Wall
             g.setColor(new Color(0, 0, 255));
-            g.fillRect(posX, posY, 20, 20);
-            break;
-          case "G": // Ghost Spawn 暂时放在这里
-            g.setColor(new Color(255, 255, 255));
             g.fillRect(posX, posY, 20, 20);
             break;
           case "-": // Empty Square Gohst can Pass
