@@ -39,7 +39,7 @@ public class Game extends JPanel {
     for (Dot dot : dotList) {
       int posX = dot.getCol() * 20;
       int posY = dot.getRow() * 20 + 50;
-      g.fillRect(posX, posY, 20, 20);
+      g.fillOval(posX + 7, posY + 7, 6, 6);
     }
   }
 
