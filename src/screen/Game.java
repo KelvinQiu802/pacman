@@ -8,6 +8,8 @@ import model.Fruit;
 import model.Maze;
 import model.Pacman;
 import model.Player;
+import model.Power;
+
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -27,6 +29,7 @@ public class Game extends JPanel {
       drawMaze(g, game.getMaze());
       drawDot(g, game.getDotList());
       drawFruit(g, game.getFruitList());
+      drawPower(g, game.getPowerList());
     }
   }
 
@@ -54,7 +57,13 @@ public class Game extends JPanel {
     }
   }
 
-  public void drawPower() {
+  public void drawPower(Graphics g, ArrayList<Power> powerList) {
+    g.setColor(new Color(135, 206, 255));
+    for (Power power : powerList) {
+      int posX = power.getCol() * 20;
+      int posY = power.getRow() * 20 + 50;
+      g.fillOval(posX + 3, posY + 3, 14, 14);
+    }
   }
 
   public void drawGhost() {
@@ -77,10 +86,6 @@ public class Game extends JPanel {
         switch (mazeArr.get(index)) {
           case "W": // Wall
             g.setColor(new Color(0, 0, 255));
-            g.fillRect(posX, posY, 20, 20);
-            break;
-          case "*": // Power
-            g.setColor(new Color(255, 192, 203));
             g.fillRect(posX, posY, 20, 20);
             break;
           case "G": // Ghost Spawn 暂时放在这里

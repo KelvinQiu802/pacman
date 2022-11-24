@@ -23,6 +23,7 @@ public class Pacman implements Game {
   private Player player;
   private ArrayList<Dot> dotList;
   private ArrayList<Fruit> fruitList;
+  private ArrayList<Power> powerList;
 
   public Pacman(PlayerListener listener) {
     this.listener = listener;
@@ -85,6 +86,7 @@ public class Pacman implements Game {
     player = generatePlayer();
     dotList = generateDotList();
     fruitList = generateFruitList();
+    powerList = generatePowerList();
   }
 
   public ArrayList<Dot> generateDotList() {
@@ -115,6 +117,21 @@ public class Pacman implements Game {
 
   public ArrayList<Fruit> getFruitList() {
     return fruitList;
+  }
+
+  public ArrayList<Power> generatePowerList() {
+    ArrayList<String> mazeArr = curMaze.getMaze();
+    ArrayList<Power> powerArr = new ArrayList<>();
+    for (int i = 0; i < mazeArr.size(); i++) {
+      if (mazeArr.get(i).equals("*")) {
+        powerArr.add(new Power(i, curMaze));
+      }
+    }
+    return powerArr;
+  }
+
+  public ArrayList<Power> getPowerList() {
+    return powerList;
   }
 
   public Player generatePlayer() {
