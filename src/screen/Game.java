@@ -3,6 +3,7 @@ package screen;
 import javax.swing.*;
 
 import model.Coordinate;
+import model.Dot;
 import model.Maze;
 import model.Pacman;
 import model.Player;
@@ -22,6 +23,7 @@ public class Game extends JPanel {
       g.fillRect(0, 0, Pacman.SCREEN_WIDTH, Pacman.SCREEN_HEIGHT);
 
       drawMaze(g, game.getMaze());
+      drawDot(g, game.getDotList());
       drawPlayer(g, game.getPlayer());
     }
   }
@@ -29,6 +31,24 @@ public class Game extends JPanel {
   public void drawPlayer(Graphics g, Player p) {
     g.setColor(new Color(255, 255, 0));
     g.fillRect(p.getX(), p.getY(), 10, 10);
+  }
+
+  public void drawDot(Graphics g, ArrayList<Dot> dotList) {
+    g.setColor(new Color(255, 255, 0));
+    for (Dot dot : dotList) {
+      int posX = dot.getCol() * 20;
+      int posY = dot.getRow() * 20 + 50;
+      g.fillRect(posX, posY, 20, 20);
+    }
+  }
+
+  public void drawFruit() {
+  }
+
+  public void drawPower() {
+  }
+
+  public void drawGhost() {
   }
 
   public void drawMaze(Graphics g, Maze maze) {
@@ -48,10 +68,6 @@ public class Game extends JPanel {
         switch (mazeArr.get(index)) {
           case "W": // Wall
             g.setColor(new Color(0, 0, 255));
-            g.fillRect(posX, posY, 20, 20);
-            break;
-          case ".": // Dot
-            g.setColor(new Color(255, 255, 0));
             g.fillRect(posX, posY, 20, 20);
             break;
           case "*": // Power
