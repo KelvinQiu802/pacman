@@ -51,13 +51,13 @@ public class Pacman implements Game {
 
   public void movePlayer() {
     if (listener.isPressingLeft()) {
-      player.move(-6, 0);
+      player.move(-1, 0);
     } else if (listener.isPressingRight()) {
-      player.move(+6, 0);
+      player.move(+1, 0);
     } else if (listener.isPressingUp()) {
-      player.move(0, -6);
+      player.move(0, -1);
     } else if (listener.isPressingDown()) {
-      player.move(0, +6);
+      player.move(0, +1);
     }
   }
 

@@ -37,7 +37,7 @@ public class Game extends JPanel {
 
   public void drawPlayer(Graphics g, Player p) {
     g.setColor(new Color(255, 0, 0));
-    g.fillOval(p.getX(), p.getY(), 20, 20);
+    g.fillOval(p.getX() + 1, p.getY() + 1, 18, 18);
   }
 
   public void drawDot(Graphics g, ArrayList<Dot> dotList) {
