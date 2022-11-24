@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import model.Coordinate;
 import model.Dot;
+import model.Fruit;
 import model.Maze;
 import model.Pacman;
 import model.Player;
@@ -22,9 +23,10 @@ public class Game extends JPanel {
       g.setColor(new Color(0, 0, 0));
       g.fillRect(0, 0, Pacman.SCREEN_WIDTH, Pacman.SCREEN_HEIGHT);
 
+      drawPlayer(g, game.getPlayer());
       drawMaze(g, game.getMaze());
       drawDot(g, game.getDotList());
-      drawPlayer(g, game.getPlayer());
+      drawFruit(g, game.getFruitList());
     }
   }
 
@@ -43,7 +45,13 @@ public class Game extends JPanel {
     }
   }
 
-  public void drawFruit() {
+  public void drawFruit(Graphics g, ArrayList<Fruit> fruitList) {
+    g.setColor(new Color(237, 175, 31));
+    for (Fruit fruit : fruitList) {
+      int posX = fruit.getCol() * 20;
+      int posY = fruit.getRow() * 20 + 50;
+      g.fillOval(posX + 3, posY + 3, 14, 14);
+    }
   }
 
   public void drawPower() {
@@ -73,10 +81,6 @@ public class Game extends JPanel {
             break;
           case "*": // Power
             g.setColor(new Color(255, 192, 203));
-            g.fillRect(posX, posY, 20, 20);
-            break;
-          case "F": // Fruit
-            g.setColor(new Color(237, 175, 31));
             g.fillRect(posX, posY, 20, 20);
             break;
           case "G": // Ghost Spawn 暂时放在这里

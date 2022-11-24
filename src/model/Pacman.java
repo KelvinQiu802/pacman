@@ -22,6 +22,7 @@ public class Pacman implements Game {
 
   private Player player;
   private ArrayList<Dot> dotList;
+  private ArrayList<Fruit> fruitList;
 
   public Pacman(PlayerListener listener) {
     this.listener = listener;
@@ -80,9 +81,10 @@ public class Pacman implements Game {
     playerLives = 3;
     playerScore = 0;
     curMaze = new Maze(level[currentLevel]);
-    // 从maze中找到player，dot等的位置，并且创建他们自己的数据结构
-    dotList = generateDotList();
+
     player = generatePlayer();
+    dotList = generateDotList();
+    fruitList = generateFruitList();
   }
 
   public ArrayList<Dot> generateDotList() {
@@ -98,6 +100,21 @@ public class Pacman implements Game {
 
   public ArrayList<Dot> getDotList() {
     return dotList;
+  }
+
+  public ArrayList<Fruit> generateFruitList() {
+    ArrayList<String> mazeArr = curMaze.getMaze();
+    ArrayList<Fruit> fruitArr = new ArrayList<>();
+    for (int i = 0; i < mazeArr.size(); i++) {
+      if (mazeArr.get(i).equals("F")) {
+        fruitArr.add(new Fruit(i, curMaze));
+      }
+    }
+    return fruitArr;
+  }
+
+  public ArrayList<Fruit> getFruitList() {
+    return fruitList;
   }
 
   public Player generatePlayer() {
