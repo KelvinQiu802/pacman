@@ -6,7 +6,7 @@ import ucd.comp2011j.engine.Game;
 public class Pacman implements Game {
   // Height: 24 * 20 + 50(Info)
   // Width: 20 * 20
-  public static final int SCREEN_HEIGHT = 530;
+  public static final int SCREEN_HEIGHT = 530 + 50;
   public static final int SCREEN_WIDTH = 400;
   private static final int NO_LEVELS = 14;
 
@@ -15,11 +15,14 @@ public class Pacman implements Game {
   private int playerScore;
   private boolean pause = false;
   private int currentLevel = 1;
+  private String[] level;
+  private Maze curMaze;
 
   private Player player;
 
   public Pacman(PlayerListener listener) {
     this.listener = listener;
+    this.level = getLevelArr();
     startNewGame();
   }
 
@@ -35,7 +38,6 @@ public class Pacman implements Game {
 
   @Override
   public void updateGame() {
-    System.out.println("Hello");
     if (!isPaused()) {
       movePlayer();
     }
@@ -64,7 +66,6 @@ public class Pacman implements Game {
 
   @Override
   public void checkForPause() {
-    System.out.println("NONO");
     if (listener.hasPressedPause()) {
       pause = !pause;
       listener.resetPause();
@@ -75,7 +76,20 @@ public class Pacman implements Game {
   public void startNewGame() {
     playerLives = 3;
     playerScore = 0;
-    player = new Player(200, 200);
+    player = new Player(200, 200); // 在确定level后，才能根据地图算出player的位置
+    curMaze = new Maze(level[currentLevel]);
+  }
+
+  public String[] getLevelArr() {
+    String[] arr = new String[NO_LEVELS];
+    for (int i = 0; i < NO_LEVELS; i++) {
+      arr[i] = "./maze/" + i + ".txt";
+    }
+    return arr;
+  }
+
+  public Maze getMaze() {
+    return curMaze;
   }
 
   @Override
