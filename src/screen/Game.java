@@ -2,14 +2,14 @@ package screen;
 
 import javax.swing.*;
 
-import model.Coordinate;
+import model.AirWall;
 import model.Dot;
 import model.Fruit;
 import model.Ghost;
-import model.Maze;
 import model.Pacman;
 import model.Player;
 import model.Power;
+import model.Wall;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -26,9 +26,10 @@ public class Game extends JPanel {
       g.setColor(new Color(0, 0, 0));
       g.fillRect(0, 0, Pacman.SCREEN_WIDTH, Pacman.SCREEN_HEIGHT);
 
+      drawWall(g, game.getWallList());
+      drawAirWall(g, game.getAirWallList());
       drawPlayer(g, game.getPlayer());
       drawGhost(g, game.getGhostList());
-      drawMaze(g, game.getMaze());
       drawDot(g, game.getDotList());
       drawFruit(g, game.getFruitList());
       drawPower(g, game.getPowerList());
@@ -80,34 +81,21 @@ public class Game extends JPanel {
     }
   }
 
-  public void drawMaze(Graphics g, Maze maze) {
-    // size: 20 * 20
-    // init: (0, 50)
-    int posX = 0;
-    int posY = 50;
-    int rows = maze.getRows();
-    int cols = maze.getCols();
-    ArrayList<String> mazeArr = maze.getMaze();
+  public void drawWall(Graphics g, ArrayList<Wall> wallList) {
+    g.setColor(new Color(0, 0, 255));
+    for (Wall wall : wallList) {
+      int posX = wall.getCol() * 20;
+      int posY = wall.getRow() * 20 + 50;
+      g.fillRect(posX, posY, 20, 20);
+    }
+  }
 
-    for (int i = 0; i < rows; i++) {
-      for (int j = 0; j < cols; j++) {
-        Coordinate cor = Coordinate.getIndex(i, j, cols);
-        int index = cor.getIndex();
-
-        switch (mazeArr.get(index)) {
-          case "W": // Wall
-            g.setColor(new Color(0, 0, 255));
-            g.fillRect(posX, posY, 20, 20);
-            break;
-          case "-": // Empty Square Gohst can Pass
-            g.setColor(new Color(128, 128, 128));
-            g.fillRect(posX, posY, 20, 20);
-            break;
-        }
-        posX += 20;
-      }
-      posX = 0;
-      posY += 20;
+  public void drawAirWall(Graphics g, ArrayList<AirWall> wallList) {
+    g.setColor(new Color(128, 128, 128));
+    for (AirWall wall : wallList) {
+      int posX = wall.getCol() * 20;
+      int posY = wall.getRow() * 20 + 50;
+      g.fillRect(posX, posY, 20, 20);
     }
   }
 }

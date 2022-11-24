@@ -25,6 +25,8 @@ public class Pacman implements Game {
   private ArrayList<Dot> dotList;
   private ArrayList<Fruit> fruitList;
   private ArrayList<Power> powerList;
+  private ArrayList<Wall> wallList;
+  private ArrayList<AirWall> airWallList;
 
   public Pacman(PlayerListener listener) {
     this.listener = listener;
@@ -89,6 +91,8 @@ public class Pacman implements Game {
     dotList = generateDotList();
     fruitList = generateFruitList();
     powerList = generatePowerList();
+    wallList = generateWallList();
+    airWallList = generateAirWallList();
   }
 
   public ArrayList<Dot> generateDotList() {
@@ -119,6 +123,36 @@ public class Pacman implements Game {
 
   public ArrayList<Fruit> getFruitList() {
     return fruitList;
+  }
+
+  public ArrayList<Wall> generateWallList() {
+    ArrayList<String> mazeArr = curMaze.getMaze();
+    ArrayList<Wall> wallArr = new ArrayList<>();
+    for (int i = 0; i < mazeArr.size(); i++) {
+      if (mazeArr.get(i).equals("W")) {
+        wallArr.add(new Wall(i, curMaze));
+      }
+    }
+    return wallArr;
+  }
+
+  public ArrayList<Wall> getWallList() {
+    return wallList;
+  }
+
+  public ArrayList<AirWall> generateAirWallList() {
+    ArrayList<String> mazeArr = curMaze.getMaze();
+    ArrayList<AirWall> wallArr = new ArrayList<>();
+    for (int i = 0; i < mazeArr.size(); i++) {
+      if (mazeArr.get(i).equals("-")) {
+        wallArr.add(new AirWall(i, curMaze));
+      }
+    }
+    return wallArr;
+  }
+
+  public ArrayList<AirWall> getAirWallList() {
+    return airWallList;
   }
 
   public ArrayList<Power> generatePowerList() {
