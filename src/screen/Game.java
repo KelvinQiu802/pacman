@@ -29,8 +29,9 @@ public class Game extends JPanel {
   }
 
   public void drawPlayer(Graphics g, Player p) {
-    g.setColor(new Color(255, 255, 0));
-    g.fillRect(p.getX(), p.getY(), 10, 10);
+    g.setColor(new Color(255, 0, 0));
+    // g.fillRect(p.getX(), p.getY(), 10, 10);
+    g.fillOval(p.getX(), p.getY(), 20, 20);
   }
 
   public void drawDot(Graphics g, ArrayList<Dot> dotList) {
@@ -72,10 +73,6 @@ public class Game extends JPanel {
             break;
           case "*": // Power
             g.setColor(new Color(255, 192, 203));
-            g.fillRect(posX, posY, 20, 20);
-            break;
-          case "P": // Player 暂时放在这里
-            g.setColor(new Color(0, 255, 0));
             g.fillRect(posX, posY, 20, 20);
             break;
           case "F": // Fruit

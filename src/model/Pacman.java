@@ -79,10 +79,10 @@ public class Pacman implements Game {
   public void startNewGame() {
     playerLives = 3;
     playerScore = 0;
-    player = new Player(200, 200); // 在确定level后，才能根据地图算出player的位置
     curMaze = new Maze(level[currentLevel]);
     // 从maze中找到player，dot等的位置，并且创建他们自己的数据结构
     dotList = generateDotList();
+    player = generatePlayer();
   }
 
   public ArrayList<Dot> generateDotList() {
@@ -98,6 +98,18 @@ public class Pacman implements Game {
 
   public ArrayList<Dot> getDotList() {
     return dotList;
+  }
+
+  public Player generatePlayer() {
+    ArrayList<String> mazeArr = curMaze.getMaze();
+    for (int i = 0; i < mazeArr.size(); i++) {
+      if (mazeArr.get(i).equals("P")) {
+        int posX = Coordinate.getCoordinate(i, curMaze.getCols()).getCol() * 20;
+        int posY = Coordinate.getCoordinate(i, curMaze.getCols()).getRow() * 20 + 50;
+        return new Player(posX, posY);
+      }
+    }
+    throw new Error("Player dosen't exist");
   }
 
   public String[] getLevelArr() {
