@@ -52,14 +52,43 @@ public class Pacman implements Game {
   }
 
   public void movePlayer() {
+    playerHitWall();
+    if (!player.isHitWall()) {
+      player.move();
+    } else {
+      System.out.println("NO");
+      switch (player.getDirection()) {
+        case UP:
+          player.move(0, 1);
+          break;
+        case DOWN:
+          player.move(0, -1);
+          break;
+        case RIGHT:
+          player.move(-1, 0);
+          break;
+        case LEFT:
+          player.move(1, 0);
+          break;
+      }
+      player.setHitWall(false);
+    }
     if (listener.isPressingLeft()) {
-      player.move(-1, 0);
+      player.changeDirection(Directions.LEFT);
     } else if (listener.isPressingRight()) {
-      player.move(+1, 0);
+      player.changeDirection(Directions.RIGHT);
     } else if (listener.isPressingUp()) {
-      player.move(0, -1);
+      player.changeDirection(Directions.UP);
     } else if (listener.isPressingDown()) {
-      player.move(0, +1);
+      player.changeDirection(Directions.DOWN);
+    }
+  }
+
+  public void playerHitWall() {
+    for (Wall wall : wallList) {
+      if (wall.isHitten(player)) {
+        player.setHitWall(true);
+      }
     }
   }
 

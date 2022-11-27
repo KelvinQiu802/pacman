@@ -28,11 +28,11 @@ public class Game extends JPanel {
 
       drawWall(g, game.getWallList());
       drawAirWall(g, game.getAirWallList());
-      drawPlayer(g, game.getPlayer());
-      drawGhost(g, game.getGhostList());
       drawDot(g, game.getDotList());
       drawFruit(g, game.getFruitList());
       drawPower(g, game.getPowerList());
+      drawGhost(g, game.getGhostList());
+      drawPlayer(g, game.getPlayer());
     }
   }
 
