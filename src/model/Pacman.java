@@ -52,43 +52,106 @@ public class Pacman implements Game {
   }
 
   public void movePlayer() {
-    playerHitWall();
+    checkPlayerHitWall();
     if (!player.isHitWall()) {
       player.move();
-    } else {
-      System.out.println("NO");
-      switch (player.getDirection()) {
-        case UP:
-          player.move(0, 1);
-          break;
-        case DOWN:
-          player.move(0, -1);
-          break;
-        case RIGHT:
-          player.move(-1, 0);
-          break;
-        case LEFT:
-          player.move(1, 0);
-          break;
-      }
-      player.setHitWall(false);
     }
-    if (listener.isPressingLeft()) {
-      player.changeDirection(Directions.LEFT);
-    } else if (listener.isPressingRight()) {
-      player.changeDirection(Directions.RIGHT);
-    } else if (listener.isPressingUp()) {
-      player.changeDirection(Directions.UP);
-    } else if (listener.isPressingDown()) {
-      player.changeDirection(Directions.DOWN);
+    // 只有到正中央才可以转向
+    if ((player.getX() / 20.0) % 1 == 0 && ((player.getY() - 50) / 20.0) % 1 == 0) {
+      if (listener.isPressingLeft()) {
+        if (canChangeDirection(Directions.LEFT)) {
+          player.changeDirection(Directions.LEFT);
+        }
+      } else if (listener.isPressingRight()) {
+        if (canChangeDirection(Directions.RIGHT)) {
+          player.changeDirection(Directions.RIGHT);
+        }
+      } else if (listener.isPressingUp()) {
+        if (canChangeDirection(Directions.UP)) {
+          player.changeDirection(Directions.UP);
+        }
+      } else if (listener.isPressingDown()) {
+        if (canChangeDirection(Directions.DOWN)) {
+          player.changeDirection(Directions.DOWN);
+        }
+      }
     }
   }
 
-  public void playerHitWall() {
-    for (Wall wall : wallList) {
-      if (wall.isHitten(player)) {
-        player.setHitWall(true);
-      }
+  public boolean canChangeDirection(Directions d) {
+    int row, col, index;
+    switch (d) {
+      case UP:
+        row = (player.getY() - 1 - 50) / 20;
+        col = player.getX() / 20;
+        index = Coordinate.getIndex(row, col, curMaze.getCols()).getIndex();
+        if (curMaze.getMaze().get(index).equals("W")) {
+          return false;
+        }
+        break;
+      case DOWN:
+        row = (player.getY() - 50) / 20;
+        col = player.getX() / 20;
+        index = Coordinate.getIndex(row + 1, col, curMaze.getCols()).getIndex();
+        if (curMaze.getMaze().get(index).equals("W")) {
+          return false;
+        }
+        break;
+      case LEFT:
+        row = (player.getY() - 50) / 20;
+        col = (player.getX() - 1) / 20;
+        index = Coordinate.getIndex(row, col, curMaze.getCols()).getIndex();
+        if (curMaze.getMaze().get(index).equals("W")) {
+          return false;
+        }
+        break;
+      case RIGHT:
+        row = (player.getY() - 50) / 20;
+        col = player.getX() / 20;
+        index = Coordinate.getIndex(row, col + 1, curMaze.getCols()).getIndex();
+        if (curMaze.getMaze().get(index).equals("W")) {
+          return false;
+        }
+        break;
+    }
+    return true;
+  }
+
+  public void checkPlayerHitWall() {
+    int row, col, index;
+    switch (player.getDirection()) {
+      case UP:
+        row = (player.getY() - 1 - 50) / 20;
+        col = player.getX() / 20;
+        index = Coordinate.getIndex(row, col, curMaze.getCols()).getIndex();
+        if (curMaze.getMaze().get(index).equals("W")) {
+          player.setHitWall(true);
+        }
+        break;
+      case DOWN:
+        row = (player.getY() - 50) / 20;
+        col = player.getX() / 20;
+        index = Coordinate.getIndex(row + 1, col, curMaze.getCols()).getIndex();
+        if (curMaze.getMaze().get(index).equals("W")) {
+          player.setHitWall(true);
+        }
+        break;
+      case LEFT:
+        row = (player.getY() - 50) / 20;
+        col = (player.getX() - 1) / 20;
+        index = Coordinate.getIndex(row, col, curMaze.getCols()).getIndex();
+        if (curMaze.getMaze().get(index).equals("W")) {
+          player.setHitWall(true);
+        }
+        break;
+      case RIGHT:
+        row = (player.getY() - 50) / 20;
+        col = player.getX() / 20;
+        index = Coordinate.getIndex(row, col + 1, curMaze.getCols()).getIndex();
+        if (curMaze.getMaze().get(index).equals("W")) {
+          player.setHitWall(true);
+        }
+        break;
     }
   }
 

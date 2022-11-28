@@ -13,7 +13,7 @@ public class Player implements Moveable {
   public Player(int x, int y) {
     this.x = x;
     this.y = y;
-    hitBox = new Rectangle(x, y, 18, 18);
+    hitBox = new Rectangle(x, y, 20, 20);
     directions = Directions.LEFT; // 默认都先向左移动
     isPower = false;
     hitWall = false;
@@ -40,13 +40,13 @@ public class Player implements Moveable {
         x += speed;
         break;
     }
-    hitBox = new Rectangle(x, y, 18, 18);
+    hitBox = new Rectangle(x, y, 20, 20);
   }
 
   public void move(int distX, int distY) {
     x += distX;
     y += distY;
-    hitBox = new Rectangle(x, y, 18, 18);
+    hitBox = new Rectangle(x, y, 20, 20);
   }
 
   public boolean isEatten(Ghost ghost) {
