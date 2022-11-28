@@ -1,7 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-
 import screen.PlayerListener;
 import ucd.comp2011j.engine.Game;
 
@@ -15,6 +14,7 @@ public class Pacman implements Game {
   private PlayerListener listener;
   private int playerLives;
   private int playerScore;
+  private int tempScore = 0;
   private boolean pause = true;
   private int currentLevel = 1;
   private String[] level;
@@ -55,9 +55,16 @@ public class Pacman implements Game {
   public void playerEat() {
     // Eat Dot
     for (int i = 0; i < dotList.size(); i++) {
-      if (player.eatDot(dotList.get(i))) {
+      if (player.eat(dotList.get(i))) {
         dotList.remove(i);
-        playerScore += 10;
+        addScore(10);
+      }
+    }
+    // Eat Fruit
+    for (int i = 0; i < fruitList.size(); i++) {
+      if (player.eat(fruitList.get(i))) {
+        fruitList.remove(i);
+        addScore(500);
       }
     }
   }
@@ -308,6 +315,19 @@ public class Pacman implements Game {
       arr[i] = "./maze/" + i + ".txt";
     }
     return arr;
+  }
+
+  public void addScore(int num) {
+    playerScore += num;
+    tempScore += num;
+    if (tempScore >= 10000) {
+      playerLives += 1;
+      tempScore = 0;
+    }
+  }
+
+  public int getLevel() {
+    return currentLevel;
   }
 
   public Maze getMaze() {

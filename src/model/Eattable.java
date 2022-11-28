@@ -2,6 +2,6 @@ package model;
 
 import java.awt.*;
 
-public interface Moveable {
+public interface Eattable {
   Rectangle getHitbox();
 }

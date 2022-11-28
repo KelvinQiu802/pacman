@@ -2,7 +2,7 @@ package model;
 
 import java.awt.*;
 
-public class Player implements Moveable {
+public class Player implements Eattable {
   private int x;
   private int y;
   private Directions directions;
@@ -63,7 +63,7 @@ public class Player implements Moveable {
     return hitBox;
   }
 
-  public boolean eatDot(Dot d) {
+  public boolean eat(Eattable d) {
     return hitBox.intersects(d.getHitbox());
   }
 

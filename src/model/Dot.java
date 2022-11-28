@@ -2,7 +2,7 @@ package model;
 
 import java.awt.*;
 
-public class Dot {
+public class Dot implements Eattable {
   private int row;
   private int col;
   private int index;
