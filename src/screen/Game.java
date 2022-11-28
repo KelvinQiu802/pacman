@@ -37,12 +37,12 @@ public class Game extends JPanel {
   }
 
   public void drawPlayer(Graphics g, Player p) {
-    g.setColor(new Color(255, 0, 0));
+    g.setColor(new Color(255, 255, 0));
     g.fillOval(p.getX() + 1, p.getY() + 1, 20, 20);
   }
 
   public void drawDot(Graphics g, ArrayList<Dot> dotList) {
-    g.setColor(new Color(255, 255, 0));
+    g.setColor(new Color(255, 184, 151));
     for (Dot dot : dotList) {
       int posX = dot.getCol() * 20;
       int posY = dot.getRow() * 20 + 50;
@@ -70,10 +70,10 @@ public class Game extends JPanel {
 
   public void drawGhost(Graphics g, ArrayList<Ghost> ghostList) {
     Color[] colors = new Color[4];
-    colors[0] = new Color(255, 184, 222);
-    colors[1] = new Color(0, 255, 222);
-    colors[2] = new Color(255, 0, 0);
-    colors[3] = new Color(101, 218, 121);
+    colors[0] = new Color(255, 0, 0);
+    colors[1] = new Color(255, 184, 222);
+    colors[2] = new Color(255, 184, 71);
+    colors[3] = new Color(0, 255, 222);
     for (int i = 0; i < ghostList.size(); i++) {
       g.setColor(colors[i]);
       Ghost p = ghostList.get(i);
@@ -82,7 +82,7 @@ public class Game extends JPanel {
   }
 
   public void drawWall(Graphics g, ArrayList<Wall> wallList) {
-    g.setColor(new Color(0, 0, 255));
+    g.setColor(new Color(30, 30, 202));
     for (Wall wall : wallList) {
       int posX = wall.getCol() * 20;
       int posY = wall.getRow() * 20 + 50;
@@ -91,7 +91,7 @@ public class Game extends JPanel {
   }
 
   public void drawAirWall(Graphics g, ArrayList<AirWall> wallList) {
-    g.setColor(new Color(128, 128, 128));
+    g.setColor(new Color(115, 115, 115));
     for (AirWall wall : wallList) {
       int posX = wall.getCol() * 20;
       int posY = wall.getRow() * 20 + 50;
