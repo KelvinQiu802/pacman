@@ -29,7 +29,7 @@ public class Game extends JPanel {
       drawWall(g, game.getWallList());
       drawAirWall(g, game.getAirWallList());
       drawDot(g, game.getDotList());
-      drawFruit(g, game.getFruitList());
+      drawFruit(g, game.getCurrentFruit());
       drawPower(g, game.getPowerList());
       drawGhost(g, game.getGhostList());
       drawPlayer(g, game.getPlayer());
@@ -56,9 +56,9 @@ public class Game extends JPanel {
     }
   }
 
-  public void drawFruit(Graphics g, ArrayList<Fruit> fruitList) {
-    g.setColor(new Color(237, 175, 31));
-    for (Fruit fruit : fruitList) {
+  public void drawFruit(Graphics g, Fruit fruit) {
+    if (fruit != null) {
+      g.setColor(new Color(237, 175, 31));
       int posX = fruit.getCol() * 20;
       int posY = fruit.getRow() * 20 + 50;
       g.fillOval(posX + 3, posY + 3, 14, 14);

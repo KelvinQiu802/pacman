@@ -1,6 +1,10 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import screen.PlayerListener;
 import ucd.comp2011j.engine.Game;
 
@@ -27,6 +31,11 @@ public class Pacman implements Game {
   private ArrayList<Power> powerList;
   private ArrayList<Wall> wallList;
   private ArrayList<AirWall> airWallList;
+  private Fruit curFruit;
+  private int curFruitIndex;
+
+  private Timer timer = new Timer();
+  private boolean refreshFruit = true;
 
   public Pacman(PlayerListener listener) {
     this.listener = listener;
@@ -49,6 +58,23 @@ public class Pacman implements Game {
     if (!isPaused()) {
       movePlayer();
       playerEat();
+      randomFruit();
+    }
+  }
+
+  public void randomFruit() {
+    if (refreshFruit && fruitList.size() != 0) {
+      Random rand = new Random();
+      curFruitIndex = rand.nextInt(fruitList.size());
+      curFruit = fruitList.get(curFruitIndex);
+      refreshFruit = !refreshFruit;
+      TimerTask changeRefreshState = new TimerTask() {
+        public void run() {
+          refreshFruit = !refreshFruit;
+        }
+      };
+      int delay = rand.nextInt(5000, 10001);
+      timer.schedule(changeRefreshState, delay);
     }
   }
 
@@ -61,9 +87,10 @@ public class Pacman implements Game {
       }
     }
     // Eat Fruit
-    for (int i = 0; i < fruitList.size(); i++) {
-      if (player.eat(fruitList.get(i))) {
-        fruitList.remove(i);
+    if (curFruit != null) {
+      if (player.eat((curFruit))) {
+        fruitList.remove(curFruitIndex);
+        curFruit = null;
         addScore(500);
       }
     }
@@ -211,6 +238,8 @@ public class Pacman implements Game {
     powerList = generatePowerList();
     wallList = generateWallList();
     airWallList = generateAirWallList();
+
+    curFruit = fruitList.get(0);
   }
 
   public ArrayList<Dot> generateDotList() {
@@ -332,6 +361,10 @@ public class Pacman implements Game {
       playerLives += 1;
       tempScore = 0;
     }
+  }
+
+  public Fruit getCurrentFruit() {
+    return curFruit;
   }
 
   public int getLevel() {
