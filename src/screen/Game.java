@@ -33,6 +33,10 @@ public class Game extends JPanel {
       drawPower(g, game.getPowerList());
       drawGhost(g, game.getGhostList());
       drawPlayer(g, game.getPlayer());
+
+      if (game.isPaused()) {
+        drawPause(g);
+      }
     }
   }
 
@@ -97,5 +101,11 @@ public class Game extends JPanel {
       int posY = wall.getRow() * 20 + 50;
       g.fillRect(posX, posY, 20, 20);
     }
+  }
+
+  public void drawPause(Graphics g) {
+    g.setColor(new Color(255, 255, 0));
+    g.setFont(new Font("Arial", Font.BOLD, 20));
+    g.drawString("Press 'p' to continue ", 80, 280);
   }
 }

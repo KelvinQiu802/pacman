@@ -15,7 +15,7 @@ public class Pacman implements Game {
   private PlayerListener listener;
   private int playerLives;
   private int playerScore;
-  private boolean pause = false;
+  private boolean pause = true;
   private int currentLevel = 1;
   private String[] level;
   private Maze curMaze;
@@ -57,7 +57,7 @@ public class Pacman implements Game {
     for (int i = 0; i < dotList.size(); i++) {
       if (player.eatDot(dotList.get(i))) {
         dotList.remove(i);
-        player.addPoints(10);
+        playerScore += 10;
       }
     }
   }
