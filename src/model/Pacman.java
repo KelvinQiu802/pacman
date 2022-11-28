@@ -48,6 +48,17 @@ public class Pacman implements Game {
   public void updateGame() {
     if (!isPaused()) {
       movePlayer();
+      playerEat();
+    }
+  }
+
+  public void playerEat() {
+    // Eat Dot
+    for (int i = 0; i < dotList.size(); i++) {
+      if (player.eatDot(dotList.get(i))) {
+        dotList.remove(i);
+        player.addPoints(10);
+      }
     }
   }
 

@@ -9,6 +9,7 @@ public class Player implements Moveable {
   private Boolean isPower;
   private Boolean hitWall;
   private Rectangle hitBox;
+  private int points;
 
   public Player(int x, int y) {
     this.x = x;
@@ -17,6 +18,7 @@ public class Player implements Moveable {
     directions = Directions.LEFT; // 默认都先向左移动
     isPower = false;
     hitWall = false;
+    points = 0;
   }
 
   public void move() {
@@ -63,6 +65,10 @@ public class Player implements Moveable {
     return hitBox;
   }
 
+  public boolean eatDot(Dot d) {
+    return hitBox.intersects(d.getHitbox());
+  }
+
   public int getX() {
     return x;
   }
@@ -81,5 +87,13 @@ public class Player implements Moveable {
 
   public void setHitWall(Boolean t) {
     hitWall = t;
+  }
+
+  public int getPoints() {
+    return points;
+  }
+
+  public void addPoints(int num) {
+    points += num;
   }
 }
