@@ -103,7 +103,8 @@ public class Pacman implements Game {
         row = (player.getY() - 1 - 50) / 20;
         col = player.getX() / 20;
         index = Coordinate.getIndex(row, col, curMaze.getCols()).getIndex();
-        if (curMaze.getMaze().get(index).equals("W")) {
+        if (curMaze.getMaze().get(index).equals("W") ||
+            curMaze.getMaze().get(index).equals("-")) {
           return false;
         }
         break;
@@ -111,7 +112,8 @@ public class Pacman implements Game {
         row = (player.getY() - 50) / 20;
         col = player.getX() / 20;
         index = Coordinate.getIndex(row + 1, col, curMaze.getCols()).getIndex();
-        if (curMaze.getMaze().get(index).equals("W")) {
+        if (curMaze.getMaze().get(index).equals("W") ||
+            curMaze.getMaze().get(index).equals("-")) {
           return false;
         }
         break;
@@ -119,7 +121,8 @@ public class Pacman implements Game {
         row = (player.getY() - 50) / 20;
         col = (player.getX() - 1) / 20;
         index = Coordinate.getIndex(row, col, curMaze.getCols()).getIndex();
-        if (curMaze.getMaze().get(index).equals("W")) {
+        if (curMaze.getMaze().get(index).equals("W") ||
+            curMaze.getMaze().get(index).equals("-")) {
           return false;
         }
         break;
@@ -127,7 +130,8 @@ public class Pacman implements Game {
         row = (player.getY() - 50) / 20;
         col = player.getX() / 20;
         index = Coordinate.getIndex(row, col + 1, curMaze.getCols()).getIndex();
-        if (curMaze.getMaze().get(index).equals("W")) {
+        if (curMaze.getMaze().get(index).equals("W") ||
+            curMaze.getMaze().get(index).equals("-")) {
           return false;
         }
         break;
@@ -142,7 +146,8 @@ public class Pacman implements Game {
         row = (player.getY() - 1 - 50) / 20;
         col = player.getX() / 20;
         index = Coordinate.getIndex(row, col, curMaze.getCols()).getIndex();
-        if (curMaze.getMaze().get(index).equals("W")) {
+        if (curMaze.getMaze().get(index).equals("W") ||
+            curMaze.getMaze().get(index).equals("-")) {
           player.setHitWall(true);
         }
         break;
@@ -150,7 +155,8 @@ public class Pacman implements Game {
         row = (player.getY() - 50) / 20;
         col = player.getX() / 20;
         index = Coordinate.getIndex(row + 1, col, curMaze.getCols()).getIndex();
-        if (curMaze.getMaze().get(index).equals("W")) {
+        if (curMaze.getMaze().get(index).equals("W") ||
+            curMaze.getMaze().get(index).equals("-")) {
           player.setHitWall(true);
         }
         break;
@@ -158,7 +164,8 @@ public class Pacman implements Game {
         row = (player.getY() - 50) / 20;
         col = (player.getX() - 1) / 20;
         index = Coordinate.getIndex(row, col, curMaze.getCols()).getIndex();
-        if (curMaze.getMaze().get(index).equals("W")) {
+        if (curMaze.getMaze().get(index).equals("W") ||
+            curMaze.getMaze().get(index).equals("-")) {
           player.setHitWall(true);
         }
         break;
@@ -166,7 +173,8 @@ public class Pacman implements Game {
         row = (player.getY() - 50) / 20;
         col = player.getX() / 20;
         index = Coordinate.getIndex(row, col + 1, curMaze.getCols()).getIndex();
-        if (curMaze.getMaze().get(index).equals("W")) {
+        if (curMaze.getMaze().get(index).equals("W") ||
+            curMaze.getMaze().get(index).equals("-")) {
           player.setHitWall(true);
         }
         break;
