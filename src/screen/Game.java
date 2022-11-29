@@ -26,20 +26,27 @@ public class Game extends JPanel {
       g.setColor(new Color(0, 0, 0));
       g.fillRect(0, 0, Pacman.SCREEN_WIDTH, Pacman.SCREEN_HEIGHT);
 
-      drawWall(g, game.getWallList());
-      drawAirWall(g, game.getAirWallList());
-      drawDot(g, game.getDotList());
-      drawFruit(g, game.getCurrentFruit());
-      drawPower(g, game.getPowerList());
-      drawGhost(g, game.getGhostList(), game.getPlayer());
-      drawPlayer(g, game.getPlayer());
+      if (!game.isGameOver()) {
+        drawWall(g, game.getWallList());
+        drawAirWall(g, game.getAirWallList());
+        drawDot(g, game.getDotList());
+        drawFruit(g, game.getCurrentFruit());
+        drawPower(g, game.getPowerList());
+        drawGhost(g, game.getGhostList(), game.getPlayer());
+        drawPlayer(g, game.getPlayer());
 
-      drawInfo(g);
+        drawInfo(g);
 
-      if (game.isPaused()) {
-        drawPause(g);
+        if (game.isPaused()) {
+          drawPause(g);
+        }
+      } else {
       }
     }
+  }
+
+  public void drawGameOver() {
+
   }
 
   public void drawPlayer(Graphics g, Player p) {
