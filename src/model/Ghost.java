@@ -1,21 +1,177 @@
 package model;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class Ghost {
   private int x;
   private int y;
   private Rectangle hitBox;
+  private Directions direction;
+  private Maze curMaze;
+  private Player player;
 
-  public Ghost(int x, int y) {
+  public Ghost(int x, int y, Maze curMaze, Player p) {
     this.x = x;
     this.y = y;
+    this.curMaze = curMaze;
+    this.player = p;
+    hitBox = new Rectangle(x, y, 20, 20);
+    direction = Directions.UP;
+  }
+
+  private class Choice implements Comparable<Choice> {
+    protected Directions direction;
+    protected double distance;
+
+    public Choice(Directions d, double dist) {
+      this.direction = d;
+      this.distance = dist;
+    }
+
+    public int compareTo(Choice c) {
+      if (distance > c.distance) {
+        return 1;
+      } else if (distance < c.distance) {
+        return -1;
+      } else {
+        return 0;
+      }
+    }
+
+    public String toString() {
+      return direction + " " + distance;
+    }
+  }
+
+  public void move(Directions d) {
+    int speed = 2;
+    switch (d) {
+      case UP:
+        y -= speed;
+        break;
+      case DOWN:
+        y += speed;
+        break;
+      case LEFT:
+        x -= speed;
+        break;
+      case RIGHT:
+        x += speed;
+        break;
+    }
     hitBox = new Rectangle(x, y, 20, 20);
   }
 
-  public void move(int distX, int distY) {
-    x += distX;
-    y += distY;
+  public Directions getNextDirection(boolean chase) {
+    int speed = 2;
+    ArrayList<Directions> allDirections = new ArrayList<>();
+    ArrayList<Choice> allChioces = new ArrayList<>();
+    allDirections.add(Directions.UP);
+    allDirections.add(Directions.DOWN);
+    allDirections.add(Directions.LEFT);
+    allDirections.add(Directions.RIGHT);
+
+    // 排除掉不能走的路
+    for (int i = 0; i < allDirections.size(); i++) {
+      if (checkHitWall(allDirections.get(i))) {
+        allDirections.remove(i);
+      }
+    }
+
+    // 如果没有方向了或只有一个方向
+    if (allDirections.size() == 1) {
+      return allDirections.get(0);
+    }
+
+    // 计算不同选择和玩家的距离
+    for (int i = 0; i < allDirections.size(); i++) {
+      int tempX, tempY;
+      double dist;
+      switch (allDirections.get(i)) {
+        case UP:
+          tempX = x;
+          tempY = y - speed;
+          dist = Math
+              .abs(Math.pow(player.getX(), 2) + Math.pow(player.getY(), 2) - Math.pow(tempY, 2) - Math.pow(tempX, 2));
+          allChioces.add(new Choice(Directions.UP, dist));
+          break;
+        case DOWN:
+          tempX = x;
+          tempY = y + speed;
+          dist = Math
+              .abs(Math.pow(player.getX(), 2) + Math.pow(player.getY(), 2) - Math.pow(tempY, 2) - Math.pow(tempX, 2));
+          allChioces.add(new Choice(Directions.DOWN, dist));
+          break;
+        case LEFT:
+          tempX = x - speed;
+          tempY = y;
+          dist = Math
+              .abs(Math.pow(player.getX(), 2) + Math.pow(player.getY(), 2) - Math.pow(tempY, 2) - Math.pow(tempX, 2));
+          allChioces.add(new Choice(Directions.LEFT, dist));
+          break;
+        case RIGHT:
+          tempX = x + speed;
+          tempY = y;
+          dist = Math
+              .abs(Math.pow(player.getX(), 2) + Math.pow(player.getY(), 2) - Math.pow(tempY, 2) - Math.pow(tempX, 2));
+          allChioces.add(new Choice(Directions.RIGHT, dist));
+          break;
+      }
+    }
+
+    // 按照距离从小到大排序
+    Collections.sort(allChioces);
+    System.out.println(allChioces);
+    if (chase) {
+      return allChioces.get(0).direction;
+    } else {
+      return allChioces.get(allChioces.size() - 1).direction;
+    }
+  }
+
+  public boolean checkHitWall(Directions direction) {
+    int row, col, index;
+    switch (direction) {
+      case UP:
+        row = (y - 1 - 50) / 20;
+        col = x / 20;
+        index = Coordinate.getIndex(row, col, curMaze.getCols()).getIndex();
+        if (curMaze.getMaze().get(index).equals("W") ||
+            curMaze.getMaze().get(index).equals("-")) {
+          return true;
+        }
+        break;
+      case DOWN:
+        row = (y - 50) / 20;
+        col = x / 20;
+        index = Coordinate.getIndex(row + 1, col, curMaze.getCols()).getIndex();
+        if (curMaze.getMaze().get(index).equals("W") ||
+            curMaze.getMaze().get(index).equals("-")) {
+          return true;
+        }
+        break;
+      case LEFT:
+        row = (y - 50) / 20;
+        col = (x - 1) / 20;
+        index = Coordinate.getIndex(row, col, curMaze.getCols()).getIndex();
+        if (curMaze.getMaze().get(index).equals("W") ||
+            curMaze.getMaze().get(index).equals("-")) {
+          return true;
+        }
+        break;
+      case RIGHT:
+        row = (y - 50) / 20;
+        col = x / 20;
+        index = Coordinate.getIndex(row, col + 1, curMaze.getCols()).getIndex();
+        if (curMaze.getMaze().get(index).equals("W") ||
+            curMaze.getMaze().get(index).equals("-")) {
+          return true;
+        }
+        break;
+    }
+    return false;
   }
 
   public boolean isEatten(Player p) {

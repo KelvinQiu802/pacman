@@ -57,8 +57,17 @@ public class Pacman implements Game {
   public void updateGame() {
     if (!isPaused()) {
       movePlayer();
+      moveGhost();
       playerEat();
       randomFruit();
+    }
+  }
+
+  public void moveGhost() {
+    for (int i = 0; i < ghostList.size(); i++) {
+      Ghost g = ghostList.get(i);
+      Directions d = g.getNextDirection(true);
+      g.move(d);
     }
   }
 
@@ -343,7 +352,7 @@ public class Pacman implements Game {
       if (mazeArr.get(i).equals("G")) {
         int posX = Coordinate.getCoordinate(i, curMaze.getCols()).getCol() * 20;
         int posY = Coordinate.getCoordinate(i, curMaze.getCols()).getRow() * 20 + 50;
-        ghostArr.add(new Ghost(posX, posY));
+        ghostArr.add(new Ghost(posX, posY, curMaze, player));
       }
     }
     return ghostArr;

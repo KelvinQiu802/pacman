@@ -20,7 +20,7 @@ public class Player implements Eattable {
   }
 
   public void move() {
-    int speed = 1;
+    int speed = 2;
     switch (directions) {
       case UP:
         y -= speed;
