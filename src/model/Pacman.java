@@ -447,7 +447,9 @@ public class Pacman implements Game {
 
   @Override
   public boolean isLevelFinished() {
-    // TODO Auto-generated method stub
+    if (dotList.size() == 0 && powerList.size() == 0) {
+      return true;
+    }
     return false;
   }
 
@@ -462,12 +464,32 @@ public class Pacman implements Game {
 
   @Override
   public void moveToNextLevel() {
-    // TODO Auto-generated method stub
+    pause = true;
+    currentLevel++;
+    eatGhostCounter = 0;
+    curMaze = new Maze(level[currentLevel]);
+
+    player = generatePlayer();
+    ghostList = generateGhostList();
+    dotList = generateDotList();
+    fruitList = generateFruitList();
+    powerList = generatePowerList();
+    wallList = generateWallList();
+    airWallList = generateAirWallList();
+    curFruit = fruitList.get(0);
+
+    homeGhostList = new ArrayList<>();
+    for (Ghost g : ghostList) {
+      homeGhostList.add(g);
+    }
   }
 
   @Override
   public boolean isGameOver() {
     if (playerLives == 0) {
+      return true;
+    }
+    if (currentLevel > NO_LEVELS) {
       return true;
     }
     return false;
