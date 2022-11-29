@@ -11,6 +11,7 @@ public class Ghost {
   private Directions direction;
   private Maze curMaze;
   private Player player;
+  private boolean canMove;
 
   public Ghost(int x, int y, Maze curMaze, Player p) {
     this.x = x;
@@ -19,6 +20,7 @@ public class Ghost {
     this.player = p;
     hitBox = new Rectangle(x, y, 20, 20);
     direction = null;
+    canMove = false;
   }
 
   private class Choice implements Comparable<Choice> {
@@ -46,6 +48,9 @@ public class Ghost {
   }
 
   public void move() {
+    if (!canMove) {
+      return;
+    }
     int speed = 1;
     if ((x / 20.0) % 1 == 0 && ((y - 50) / 20.0) % 1 == 0) {
       getNextDirection(true);
@@ -189,5 +194,9 @@ public class Ghost {
 
   public Directions getNewDirection() {
     return direction;
+  }
+
+  public void setMove(boolean t) {
+    canMove = t;
   }
 }

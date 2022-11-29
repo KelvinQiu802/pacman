@@ -26,6 +26,8 @@ public class Pacman implements Game {
 
   private Player player;
   private ArrayList<Ghost> ghostList;
+  private ArrayList<Ghost> homeGhostList;
+  private ArrayList<Ghost> pendingGhostList = new ArrayList<>(); // start timer
   private ArrayList<Dot> dotList;
   private ArrayList<Fruit> fruitList;
   private ArrayList<Power> powerList;
@@ -57,10 +59,33 @@ public class Pacman implements Game {
   public void updateGame() {
     if (!isPaused()) {
       movePlayer();
+      manageGhost();
       moveGhost();
       playerEat();
       randomFruit();
     }
+  }
+
+  public void manageGhost() {
+    Random rand = new Random();
+    int waitTime = 0;
+    if (homeGhostList.size() == ghostList.size()) {
+      homeGhostList.get(0).setMove(true);
+      homeGhostList.remove(0);
+    }
+    for (int i = 0; i < homeGhostList.size(); i++) {
+      waitTime += rand.nextInt(15 * 100, 30 * 100);
+      Ghost g = homeGhostList.get(i);
+      pendingGhostList.add(g);
+      TimerTask pend = new TimerTask() {
+        public void run() {
+          g.setMove(true);
+          pendingGhostList.remove(g);
+        }
+      };
+      timer.schedule(pend, waitTime);
+    }
+    homeGhostList.clear();
   }
 
   public void moveGhost() {
@@ -253,8 +278,12 @@ public class Pacman implements Game {
     powerList = generatePowerList();
     wallList = generateWallList();
     airWallList = generateAirWallList();
-
     curFruit = fruitList.get(0);
+
+    homeGhostList = new ArrayList<>();
+    for (Ghost g : ghostList) {
+      homeGhostList.add(g);
+    }
   }
 
   public ArrayList<Dot> generateDotList() {
