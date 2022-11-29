@@ -124,7 +124,6 @@ public class Ghost {
 
     // 按照距离从小到大排序
     Collections.sort(allChioces);
-    System.out.println(allChioces);
     if (chase) {
       direction = allChioces.get(0).direction;
     } else {

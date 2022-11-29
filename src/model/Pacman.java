@@ -20,7 +20,7 @@ public class Pacman implements Game {
   private int playerScore;
   private int tempScore = 0;
   private boolean pause = true;
-  private int currentLevel = 1;
+  private int currentLevel = 2;
   private String[] level;
   private Maze curMaze;
 
