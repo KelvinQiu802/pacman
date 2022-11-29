@@ -4,9 +4,11 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Ghost {
+public class Ghost implements Eattable {
   private int x;
   private int y;
+  private int initX;
+  private int initY;
   private Rectangle hitBox;
   private Directions direction;
   private Maze curMaze;
@@ -16,11 +18,19 @@ public class Ghost {
   public Ghost(int x, int y, Maze curMaze, Player p) {
     this.x = x;
     this.y = y;
+    this.initX = x;
+    this.initY = y;
     this.curMaze = curMaze;
     this.player = p;
     hitBox = new Rectangle(x, y, 20, 20);
     direction = null;
     canMove = false;
+  }
+
+  public void reset() {
+    canMove = false;
+    x = initX;
+    y = initY;
   }
 
   private class Choice implements Comparable<Choice> {
@@ -173,11 +183,6 @@ public class Ghost {
         break;
     }
     return false;
-  }
-
-  public boolean isEatten(Player p) {
-    Rectangle s = p.getHitbox();
-    return s.intersects(hitBox.getBounds());
   }
 
   public Rectangle getHitbox() {

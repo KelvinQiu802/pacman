@@ -35,6 +35,7 @@ public class Pacman implements Game {
   private ArrayList<AirWall> airWallList;
   private Fruit curFruit;
   private int curFruitIndex;
+  private int eatGhostCounter;
 
   private Timer timer = new Timer();
   private boolean refreshFruit = true;
@@ -132,6 +133,17 @@ public class Pacman implements Game {
       if (player.eat(powerList.get(i))) {
         powerList.remove(i);
         addScore(50);
+        eatGhostCounter = 0;
+      }
+    }
+    // Eat Ghost
+    for (int i = 0; i < ghostList.size(); i++) {
+      if (player.eat(ghostList.get(i))) {
+        Ghost g = ghostList.get(i);
+        g.reset();
+        homeGhostList.add(g);
+        addScore(200 * (int) Math.pow(2, eatGhostCounter));
+        eatGhostCounter++;
       }
     }
   }
@@ -269,6 +281,7 @@ public class Pacman implements Game {
   public void startNewGame() {
     playerLives = 3;
     playerScore = 0;
+    eatGhostCounter = 0;
     curMaze = new Maze(level[currentLevel]);
 
     player = generatePlayer();
