@@ -124,8 +124,8 @@ public class Game extends JPanel {
   public void drawInfo(Graphics g) {
     g.setColor(new Color(255, 255, 255));
     g.setFont(new Font("Arial", Font.BOLD, 20));
-    g.drawString("Level: " + game.getLevel(), 20, 40);
-    g.drawString("Lives: " + game.getLives(), 120, 40);
-    g.drawString("Scores: " + game.getPlayerScore(), 220, 40);
+    g.drawString("Level: " + game.getLevel(), 20, 35);
+    g.drawString("Lives: " + game.getLives(), 120, 35);
+    g.drawString("Scores: " + game.getPlayerScore(), 220, 35);
   }
 }
