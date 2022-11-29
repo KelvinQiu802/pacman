@@ -132,18 +132,21 @@ public class Pacman implements Game {
     for (int i = 0; i < powerList.size(); i++) {
       if (player.eat(powerList.get(i))) {
         powerList.remove(i);
+        player.setPower();
         addScore(50);
         eatGhostCounter = 0;
       }
     }
     // Eat Ghost
-    for (int i = 0; i < ghostList.size(); i++) {
-      if (player.eat(ghostList.get(i))) {
-        Ghost g = ghostList.get(i);
-        g.reset();
-        homeGhostList.add(g);
-        addScore(200 * (int) Math.pow(2, eatGhostCounter));
-        eatGhostCounter++;
+    if (player.isPowering()) {
+      for (int i = 0; i < ghostList.size(); i++) {
+        if (player.eat(ghostList.get(i))) {
+          Ghost g = ghostList.get(i);
+          g.reset();
+          homeGhostList.add(g);
+          addScore(200 * (int) Math.pow(2, eatGhostCounter));
+          eatGhostCounter++;
+        }
       }
     }
   }

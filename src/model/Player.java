@@ -1,6 +1,8 @@
 package model;
 
 import java.awt.*;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Player implements Eattable {
   private int x;
@@ -86,7 +88,14 @@ public class Player implements Eattable {
     return isPower;
   }
 
-  public void setPower(boolean t) {
-    isPower = t;
+  public void setPower() {
+    isPower = true;
+    Timer timer = new Timer();
+    TimerTask power = new TimerTask() {
+      public void run() {
+        isPower = false;
+      }
+    };
+    timer.schedule(power, 5000);
   }
 }

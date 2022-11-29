@@ -31,6 +31,7 @@ public class Ghost implements Eattable {
     canMove = false;
     x = initX;
     y = initY;
+    hitBox = new Rectangle(x, y, 20, 20);
   }
 
   private class Choice implements Comparable<Choice> {
@@ -63,7 +64,11 @@ public class Ghost implements Eattable {
     }
     int speed = 1;
     if ((x / 20.0) % 1 == 0 && ((y - 50) / 20.0) % 1 == 0) {
-      getNextDirection(true);
+      if (player.isPowering()) {
+        getNextDirection(false);
+      } else {
+        getNextDirection(true);
+      }
     }
     switch (direction) {
       case UP:

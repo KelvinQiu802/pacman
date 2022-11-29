@@ -31,7 +31,7 @@ public class Game extends JPanel {
       drawDot(g, game.getDotList());
       drawFruit(g, game.getCurrentFruit());
       drawPower(g, game.getPowerList());
-      drawGhost(g, game.getGhostList());
+      drawGhost(g, game.getGhostList(), game.getPlayer());
       drawPlayer(g, game.getPlayer());
 
       drawInfo(g);
@@ -66,7 +66,6 @@ public class Game extends JPanel {
   }
 
   public void drawPower(Graphics g, ArrayList<Power> powerList) {
-    g.setColor(new Color(135, 206, 255));
     for (Power power : powerList) {
       int posX = power.getCol() * 20;
       int posY = power.getRow() * 20 + 50;
@@ -74,14 +73,18 @@ public class Game extends JPanel {
     }
   }
 
-  public void drawGhost(Graphics g, ArrayList<Ghost> ghostList) {
+  public void drawGhost(Graphics g, ArrayList<Ghost> ghostList, Player player) {
     Color[] colors = new Color[4];
     colors[0] = new Color(255, 0, 0);
     colors[1] = new Color(255, 184, 222);
     colors[2] = new Color(255, 184, 71);
     colors[3] = new Color(0, 255, 222);
     for (int i = 0; i < ghostList.size(); i++) {
-      g.setColor(colors[i]);
+      if (player.isPowering()) {
+        g.setColor(new Color(0, 0, 255));
+      } else {
+        g.setColor(colors[i]);
+      }
       Ghost p = ghostList.get(i);
       g.fillOval(p.getX(), p.getY(), 20, 20);
     }
