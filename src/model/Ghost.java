@@ -34,6 +34,10 @@ public class Ghost implements Eattable {
     hitBox = new Rectangle(x, y, 20, 20);
   }
 
+  public boolean eat(Player p) {
+    return hitBox.intersects(p.getHitbox());
+  }
+
   private class Choice implements Comparable<Choice> {
     protected Directions direction;
     protected double distance;

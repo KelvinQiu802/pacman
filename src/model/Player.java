@@ -7,6 +7,8 @@ import java.util.TimerTask;
 public class Player implements Eattable {
   private int x;
   private int y;
+  private int initX;
+  private int initY;
   private Directions directions;
   private Boolean isPower;
   private Boolean hitWall;
@@ -15,10 +17,18 @@ public class Player implements Eattable {
   public Player(int x, int y) {
     this.x = x;
     this.y = y;
+    this.initX = x;
+    this.initY = y;
     hitBox = new Rectangle(x, y, 20, 20);
     directions = Directions.LEFT; // 默认都先向左移动
     isPower = false;
     hitWall = false;
+  }
+
+  public void reset() {
+    x = initX;
+    y = initY;
+    hitBox = new Rectangle(x, y, 20, 20);
   }
 
   public void move() {

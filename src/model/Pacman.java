@@ -63,7 +63,17 @@ public class Pacman implements Game {
       manageGhost();
       moveGhost();
       playerEat();
+      ghostEat();
       randomFruit();
+    }
+  }
+
+  public void ghostEat() {
+    for (Ghost g : ghostList) {
+      if (g.eat(player)) {
+        player.reset();
+        playerLives--;
+      }
     }
   }
 
@@ -75,7 +85,7 @@ public class Pacman implements Game {
       homeGhostList.remove(0);
     }
     for (int i = 0; i < homeGhostList.size(); i++) {
-      waitTime += rand.nextInt(15 * 100, 30 * 100);
+      waitTime += rand.nextInt(15 * 1000, 30 * 1000);
       Ghost g = homeGhostList.get(i);
       pendingGhostList.add(g);
       TimerTask pend = new TimerTask() {
@@ -443,14 +453,11 @@ public class Pacman implements Game {
 
   @Override
   public boolean isPlayerAlive() {
-    // TODO Auto-generated method stub
     return true;
   }
 
   @Override
   public void resetDestroyedPlayer() {
-    // TODO Auto-generated method stub
-
   }
 
   @Override
@@ -460,7 +467,9 @@ public class Pacman implements Game {
 
   @Override
   public boolean isGameOver() {
-    // TODO Auto-generated method stub
+    if (playerLives == 0) {
+      return true;
+    }
     return false;
   }
 
