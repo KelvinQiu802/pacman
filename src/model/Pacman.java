@@ -20,7 +20,7 @@ public class Pacman implements Game {
   private int playerScore;
   private int tempScore = 0;
   private boolean pause = true;
-  private int currentLevel = 2;
+  private int currentLevel = 1;
   private String[] level;
   private Maze curMaze;
 
@@ -85,7 +85,7 @@ public class Pacman implements Game {
       homeGhostList.remove(0);
     }
     for (int i = 0; i < homeGhostList.size(); i++) {
-      waitTime += rand.nextInt(15 * 1000, 30 * 1000);
+      waitTime += rand.nextInt(5 * 1000, 10 * 1000);
       Ghost g = homeGhostList.get(i);
       pendingGhostList.add(g);
       TimerTask pend = new TimerTask() {
