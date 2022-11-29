@@ -66,8 +66,7 @@ public class Pacman implements Game {
   public void moveGhost() {
     for (int i = 0; i < ghostList.size(); i++) {
       Ghost g = ghostList.get(i);
-      Directions d = g.getNextDirection(true);
-      g.move(d);
+      g.move();
     }
   }
 
