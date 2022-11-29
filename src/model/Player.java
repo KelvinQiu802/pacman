@@ -20,12 +20,7 @@ public class Player implements Eattable {
   }
 
   public void move() {
-    int speed;
-    if (isPower) {
-      speed = 5;
-    } else {
-      speed = 1;
-    }
+    int speed = 1;
     switch (directions) {
       case UP:
         y -= speed;
@@ -85,5 +80,13 @@ public class Player implements Eattable {
 
   public void setHitWall(Boolean t) {
     hitWall = t;
+  }
+
+  public boolean isPowering() {
+    return isPower;
+  }
+
+  public void setPower(boolean t) {
+    isPower = t;
   }
 }

@@ -94,6 +94,13 @@ public class Pacman implements Game {
         addScore(500);
       }
     }
+    // Eat Power
+    for (int i = 0; i < powerList.size(); i++) {
+      if (player.eat(powerList.get(i))) {
+        powerList.remove(i);
+        addScore(50);
+      }
+    }
   }
 
   public void movePlayer() {

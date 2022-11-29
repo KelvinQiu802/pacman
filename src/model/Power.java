@@ -1,14 +1,18 @@
 package model;
 
-public class Power {
+import java.awt.*;
+
+public class Power implements Eattable {
   private int row;
   private int col;
   private int index;
+  private Rectangle hitBox;
 
   public Power(int index, Maze maze) {
     this.index = index;
     this.row = Coordinate.getCoordinate(index, maze.getCols()).getRow();
     this.col = Coordinate.getCoordinate(index, maze.getCols()).getCol();
+    hitBox = new Rectangle(col * 20 + 3, row * 20 + 50 + 3, 14, 14);
   }
 
   public int getRow() {
@@ -21,5 +25,9 @@ public class Power {
 
   public int getIndex() {
     return index;
+  }
+
+  public Rectangle getHitbox() {
+    return hitBox;
   }
 }
