@@ -15,7 +15,7 @@ public class App {
         mainWindow.setSize(Pacman.SCREEN_WIDTH, Pacman.SCREEN_HEIGHT);
         mainWindow.setResizable(false);
         mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainWindow.setTitle("Space Invaders Game");
+        mainWindow.setTitle("Pacman");
         mainWindow.setLocationRelativeTo(null);
 
         PlayerListener playerListener = new PlayerListener();

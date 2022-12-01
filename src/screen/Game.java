@@ -73,6 +73,7 @@ public class Game extends JPanel {
   }
 
   public void drawPower(Graphics g, ArrayList<Power> powerList) {
+    g.setColor(new Color(255, 255, 255));
     for (Power power : powerList) {
       int posX = power.getCol() * 20;
       int posY = power.getRow() * 20 + 50;
